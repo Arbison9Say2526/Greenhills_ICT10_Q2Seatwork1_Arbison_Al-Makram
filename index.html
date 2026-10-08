@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Philippine Island Expeditions</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- PyScript Core -->
+  <link rel="stylesheet" href="https://pyscript.net/releases/2026.7.3/core.css">
+  <script type="module" src="https://pyscript.net/releases/2026.7.3/core.js"></script>
+
+  <style>
+    :root {
+      --gold-primary: #C5A059;
+      --gold-light: #E5C889;
+      --navy-deep: #071321;
+      --navy-card: #0D2137;
+      --text-cream: #F4EFEA;
+      --text-muted: #A3B1C2;
+      --border-gold: rgba(197, 160, 89, 0.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at center, #102A45 0%, var(--navy-deep) 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Montserrat', sans-serif;
+      padding: 24px;
+      color: var(--text-cream);
+    }
+
+    .travel-pass {
+      position: relative;
+      background: var(--navy-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 4px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 40px rgba(197, 160, 89, 0.08);
+      max-width: 480px;
+      width: 100%;
+      padding: 40px 32px;
+      overflow: hidden;
+    }
+
+    .travel-pass::before {
+      content: '';
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      border: 1px solid var(--border-gold);
+      pointer-events: none;
+    }
+
+    .compass-watermark {
+      position: absolute;
+      top: -30px;
+      right: -30px;
+      font-size: 140px;
+      color: rgba(197, 160, 89, 0.03);
+      user-select: none;
+      pointer-events: none;
+    }
+
+    .brand-tag {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.65rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--text-cream);
+      text-align: center;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .divider {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+      margin: 12px auto 20px auto;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      text-align: center;
+      line-height: 1.5;
+      margin-bottom: 30px;
+      font-weight: 300;
+    }
+
+    .field-label {
+      font-family: 'Cinzel', serif;
+      font-size: 0.75rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .select-wrapper {
+      position: relative;
+      margin-bottom: 24px;
+    }
+
+    select {
+      width: 100%;
+      padding: 14px 16px;
+      background-color: rgba(7, 19, 33, 0.7);
+      border: 1px solid var(--border-gold);
+      border-radius: 2px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-cream);
+      outline: none;
+      appearance: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    select:focus {
+      border-color: var(--gold-primary);
+      box-shadow: 0 0 12px rgba(197, 160, 89, 0.2);
+    }
+
+    .select-wrapper::after {
+      content: '✦';
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold-primary);
+      font-size: 0.8rem;
+      pointer-events: none;
+    }
+
+    option {
+      background-color: var(--navy-deep);
+      color: var(--text-cream);
+      padding: 10px;
+    }
+
+    button {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #C5A059 0%, #9A7736 100%);
+      color: var(--navy-deep);
+      border: none;
+      border-radius: 2px;
+      font-family: 'Cinzel', serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #E5C889 0%, #C5A059 100%);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(197, 160, 89, 0.3);
+    }
+
+    .result-box {
+      margin-top: 28px;
+      padding: 20px;
+      background: rgba(7, 19, 33, 0.8);
+      border: 1px dashed var(--border-gold);
+      border-radius: 2px;
+      text-align: center;
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 0.95rem;
+      color: var(--gold-light);
+      letter-spacing: 1px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="travel-pass">
+    <div class="compass-watermark">🧭</div>
+
+    <div class="brand-tag">AURA EXPEDITIONS — PHILIPPINES</div>
+    <h2>Island Gazetteer</h2>
+    <div class="divider"></div>
+    <p class="subtitle">Select a destination to unlock its official geographical moniker.</p>
+
+    <label class="field-label" for="destinationSelect">Select Destination</label>
+    <div class="select-wrapper">
+      <select id="destinationSelect">
+        <option value="0">Sulu</option>
+        <option value="1">El Nido</option>
+        <option value="2">Bohol</option>
+        <option value="3">Cebu</option>
+        <option value="4">Boracay</option>
+      </select>
+    </div>
+
+    <button id="getbtn" py-click="get_nickname">Reveal Moniker</button>
+
+    <div id="div1" class="result-box">
+      Awaiting Selection...
+    </div>
+  </div>
+
+  <script type="py" src="main.py"></script>
+
+</body>
+</html>
